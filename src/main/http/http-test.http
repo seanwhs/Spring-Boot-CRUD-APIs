@@ -1,0 +1,33 @@
+### Pre-requisit: Instantiate the PostgreSQL container; create customer database and table
+### show all customers
+GET http://localhost:8080/api/v1/customers
+Content-Type: application/json
+
+### show customers by selecting id
+GET http://localhost:8080/api/v1/customers/1
+Content-Type: application/json
+
+
+### Add customer 
+POST http://localhost:8080/api/v1/customers
+Content-Type: application/json
+
+{
+    "age": 450000,
+    "name": "Sauron",
+    "email": "sauron@example.com"
+}
+
+### Update customer (Assuming Sauron has been added with id==6)
+PUT http://localhost:8080/api/v1/customers/6
+Content-Type: application/json
+
+{
+    "age": 450000,
+    "name": "Sauron The Bad Wizard",
+    "email": "sauron-big-bad-wizard@example.com"
+}
+
+### Delete customer 
+Delete http://localhost:8080/api/v1/customers/6
+Content-Type: application/json

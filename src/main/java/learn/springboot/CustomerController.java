@@ -1,5 +1,6 @@
 package learn.springboot;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,29 @@ public class CustomerController {
 
     @GetMapping("{customerId}")
     public Optional<Object> getCustomerById(@PathVariable("customerId") Integer id) {
-    Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
-    return optionalCustomer.map(customer -> ResponseEntity.ok().body(customer));
+        return optionalCustomer.map(customer -> ResponseEntity.ok().body(customer));
     }
 
+    // @PostMapping
+    // public void addCustomer(@RequestBody Customer request) {
+    // customerRepository.save(request);
+    // }
 
     @PostMapping
-    public void addCustomer(@RequestBody Customer request) {
-        customerRepository.save(request);
+    public ResponseEntity<String> addCustomer(@RequestBody Customer request) {
+        try {
+            if (request.getID() != null) {
+                return ResponseEntity.badRequest().body("ID should not be provided in the request for a new customer.");
+            }
+
+            customerRepository.save(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Customer added successfully");
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception for debugging purposes
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        }
     }
 
     @DeleteMapping("{customerId}")

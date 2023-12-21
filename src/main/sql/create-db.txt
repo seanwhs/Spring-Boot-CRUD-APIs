@@ -1,0 +1,33 @@
+-- Instantiate PostgreSQL database (Terminal)
+docker compose up -d //-d activates containers as background tasks
+
+-- "Enter" docker postgresl container 
+docker ps //check for actively running containers
+docker exec -it postgres bash //assuming postgres is name of the postgresl container
+
+-- "Within" docker postgresl container 
+psql -U root //conect to postgresl database as root
+\l \\check for existing databases 
+
+-- Create the 'customer' database
+CREATE DATABASE customer;
+
+-- Switch to the 'customer' database
+\l \\ensure that database is created
+\c customer; \\switch to customer database
+
+-- Run Springboot application to Create a schema for your tables 
+\dt \\cehck for table(s) created by springboot application
+select * from customer; \\assuming springboot application created customer table
+
+-- Insert test data into the 'customer' table
+INSERT INTO customer (id, age, name, email) VALUES
+    (1, 55, 'Sean Wong', 'sean.wong@example.com'),
+    (2, 30, 'Jane Lee', 'jane.lee@example.com'),
+    (3, 48, 'Simon See', 'simon.see@example.com'),
+    (4, 62, 'Sam How', 'sam.how@example.com'),
+    (5, 22, 'Bob Chia', 'bob.chia@example.com');
+
+-- Commit the changes
+COMMIT;
+
