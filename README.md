@@ -29,27 +29,10 @@ docker-compose up -d
 
 This command will start the PostgreSQL container in the background.
 
-### 3. Create the Customer Database
 
-The PostgreSQL container should automatically create the necessary database. However, if you encounter any issues, you can manually create the "customer" database using the following steps:
+#### 3. Create customer Database (manual), customer Table (by Springboot), and test data (manual)
+Please Refer to create-db.txt in "sql" directory 
 
-#### Access the PostgreSQL Container
-
-```bash
-docker exec -it postgres psql -U root
-```
-
-#### Create the Database
-
-```sql
-CREATE DATABASE customer;
-```
-
-#### Exit the PostgreSQL Shell
-
-```sql
-\q
-```
 
 Alternatively, run the following command to automate the process:
 
