@@ -4,20 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Customer {
     @Id
-    @SequenceGenerator(
-        name="customer_id_sequence", 
-        sequenceName = "customer_id_sequence",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "customer_id_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
     private Integer age;
     private String name;
@@ -26,9 +17,8 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer age, Integer iD, String name, String email) {
+    public Customer(Integer age, String name, String email) {
         this.age = age;
-        ID = iD;
         this.name = name;
         this.email = email;
     }
@@ -112,7 +102,4 @@ public class Customer {
     public String toString() {
         return "Customer [age=" + age + ", ID=" + ID + ", name=" + name + ", email=" + email + "]";
     }
-
-    
-    
 }
